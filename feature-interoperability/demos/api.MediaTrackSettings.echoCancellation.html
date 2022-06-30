@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Demo: api.MediaTrackSettings.echoCancellation</title>
+</head>
+<body>
+  Click to test
+  <script>
+    document.onclick = () => {
+      navigator.mediaDevices.getUserMedia({
+        audio: {
+          sampleSize: 16,
+          channelCount: 2
+        }
+      }).then(stream => {
+        const settings = stream.getTracks()[0].getSettings();
+        if (!settings || typeof settings.echoCancellation !== 'boolean') {
+          console.error('❌ Expected a MediaTrackSettings object with echoCancellation, but got:', settings);
+        } else {
+          console.log('✔ Test successful. Got a MediaTrackSettings object with echoCancellation:', settings);
+        }
+      }).catch(err => {
+        console.error('❌ Unexpected error:', err);
+      });
+    }
+  </script>
+</body>
+</html>
